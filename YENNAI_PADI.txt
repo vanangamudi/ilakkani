@@ -1,0 +1,76 @@
+* சொல்திருத்தி சோதனைகள் 
+
+** எப்படி பயன்கொள்வது (How to use thiruthi.py)
+   Set the path to your csv dictionary file =DEFAULT_DICTIONARY_FILES= in  =resources.py=. The csv file should be `word, freq` format. if you don't have freq counts, just set them to =0= or empty string
+  
+   #+begin_src bash
+ $ python3 -i thiruthi.py
+ loading data/chorkuviyal.22mar22.csv...
+ loading data/chorkuviyal.22mar22.csv...
+ loading data/chorkuviyal.22mar22.csv...
+ > இணையதளம்
+ இருக்குதா? இருக்கு
+ இருக்குதா? இருக்கு
+ 'என்ன என்ன வார்த்தைகளோ?'
+ [(2, 'இசைதளம்'),
+  (1, 'இணைதளம்'),
+  (2, 'இடைத்தளம்'),
+  (0, 'இணையதளம்'),
+  (2, 'இணையத்தளக்'),
+  (2, 'இணைபதம்'),
+  (2, 'இந்தளம்'),
+  (2, 'இணைத்தடம்'),
+  (2, 'இணைதடம்'),
+  (1, 'இணையத்தளம்'),
+  (2, 'இணையகம்'),
+  (2, 'இணையம்'),
+  (1, 'இணையதள'),
+  (1, 'இணையதளச்'),
+  (2, 'இணையமும்'),
+  (2, 'துணைத்தளம்'),
+  (2, 'கணையநாளம்'),
+  (1, 'இணையதளக்'),
+  (1, 'இணையதளத்'),
+  (1, 'இணையதளப்'),
+  (2, 'இணையளவி')]
+ >   C-c C-cTraceback (most recent call last):
+   File "thiruthi.py", line 53, in <module>
+     word = input('> ')
+ KeyboardInterrupt
+ >>> trie.get_all_suffixes(get_letters(இணைய))
+ Traceback (most recent call last):
+   File "<stdin>", line 1, in <module>
+ NameError: name 'இணைய' is not defined
+ >>> trie.get_all_suffixes(get_letters('இணைய'))
+ ['கம்', 'க்', 'க்கூடம்', 'சை', 'ச்', 'ச்சு', 'ச்சுகள்', 'ச்சுத்தேற்றம்', 'ச்செயல்', 'ச்செய்தி', 'டி', 'டிகால்', 'டிசூட', 'டித்தல்', 'டுக்கு', 'டுக்குக்', 'ணை', 'தள', 'தளக்', 'தளச்', 'தளத்', 'தளத்தைப்', 'தளப்', 'தளம்', 'த்', 'த்தளக்', 'த்தளம்', 'த்தளவழிக்', 'த்தில்', 'ப்', 'ப்பண்பாடு', 'ப்பிழைமம்', 'மிலா', 'மும்', 'முறை', 'மைத்', 'மையிழப்பு', 'மைவு', 'ம்', 'ம்வழி', 'ரங்கம்', 'ரசு', 'ர்', 'ற்கால்வாய்', 'ற்குறியாளங்கள்', 'ற்குழல்', 'ற்ற', 'ல்', 'ளபெடை', 'ளபெடைத்தொடை', 'ளவி', 'வச்சம்', 'வலை', 'வழி', 'வழிப்', 'வுலா', 'வெளி', 'வெளிக்']
+
+
+   #+end_src
+   
+* Tasks
+** NEXT Baseline spellchecking
+*** DONE Bloom filter based existence checker
+*** DONE Trie based tree builder that encodes all word from dictionary in a trie
+*** DONE BKTRee with levenshtein metric to generate suggestions
+***** DONE impl naive levenshtein function to enable tamil char level distance calculation instead of unicode level
+*** TODO generate samples from Trie so that the inital letters are preserved
+*** NEXT CLI utility to spellcheck files
+*** TODO valid character check
+*** TODO valid character transition check
+** TODO flask API?
+** TODO browser addon
+** TODO Write tests and build test data
+  
+*  முன்னெடுப்புகள்
+- [[https://github.com/Ezhil-Language-Foundation/open-tamil][Open Tamil - Ezhil Language Foundation]]
+- [[https://github.com/KaniyamFoundation/all_tamil_words][]all tamil words - KaniyamFoundation]]
+- [[https://goinggnu.wordpress.com/2020/06/04/building-open-source-tamil-spellchecker-day-7-scrapping-websites-to-get-more-words][Building Open Source Tamil Spellchecker]]
+- [[https://gist.github.com/malaikannan/21fda36bd0bec126dd598924af1ab482][Tamil Spellcheck based on bloom-filter]]
+- [[https://sarves.github.io/thamizhi-morph/][thamizh-morph]]
+- [[https://github.com/neechalkaran/Tamil-corpus][Tamil corpus]]
+**  [[https://github.com/wolfgarbe/SymSpell][SymSpell]] by [[https://github.com/wolfgarbe/][Wolf Garbe]]
+  Spelling correction & Fuzzy search: 1 million times faster through Symmetric Delete spelling correction algorithm
+
+  We adapted python implementation from [[https://github.com/mammothb/symspellpy][symspellpy]] by [[https://github.com/mammothb/][mammothb]]
+
+ 
