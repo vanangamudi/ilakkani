@@ -1,0 +1,6 @@
+include tharavu/chorkuviyal.22mar22.tsv.gz
+include tharavu/chorpirappiyal-agarathi.tsv.gz
+include tharavu/orungurri-chellumai-cholloadai.tsv
+include tharavu/test.json
+include tharavu/test.txt
+
