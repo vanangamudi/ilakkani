@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 
 [project]
-name = "thiruthathari"
+name = "ilakkani"
 version = "0.0.1"
 authors = [
   { name="vanangamudi", email="selva.developer@gmail.com" },
@@ -25,15 +25,18 @@ dependencies = [
              "Open-Tamil==1.1",
 ]
 
+[project.scripts]
+ilakkani = "ilakkani.thiruthi:vaayil"
+
 [project.urls]
-"Homepage" = "https://github.com/vanangamudi/thiruthathari"
-"Bug Tracker" = "https://github.com/vanangamudi/thiruthathari/issues"
+"Homepage" = "https://github.com/vanangamudi/ilakkani"
+"Bug Tracker" = "https://github.com/vanangamudi/ilakkani/issues"
 
 [tool.setuptools]
 include-package-data = true
 
 [tool.setuptools.packages.find]
-where = ["moolam"]  # ["."] by default
-include = ["*", 'resources.py']  # ["*"] by default
+where = ["mlm"]  # ["."] by default
+include = ["*"]  # ["*"] by default
 exclude = []  # empty by default
 namespaces = true  # true by default

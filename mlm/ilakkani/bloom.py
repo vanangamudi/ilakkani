@@ -5,8 +5,8 @@ from tqdm import tqdm
 import tqdm
 
 import csv
-import utils
-from resources import DEFAULT_DICTIONARY_FILES, XSV_DELIMITER
+import ilakkani.utils as utils
+from .valam import DEFAULT_DICTIONARY_FILES, XSV_DELIMITER
 
 BLOOMFILTER_SIZE = 200000 #no of items to add
 BLOOMFILTER_PROB = 0.05 #false positive probability
@@ -16,7 +16,8 @@ def build_bloom(filepaths,
                 size  = BLOOMFILTER_SIZE,
                 prob  = BLOOMFILTER_PROB,
                 pbarp = False):
-    
+
+    print('building bloom filter...')
     bloom = BloomFilter(size, prob)
 
     for filepath in filepaths:

@@ -5,8 +5,8 @@ from tqdm import tqdm
 from tamil.utf8 import get_letters
 import csv
 
-import utils
-from resources import DEFAULT_DICTIONARY_FILES, XSV_DELIMITER
+import ilakkani.utils as utils
+from .valam import DEFAULT_DICTIONARY_FILES, XSV_DELIMITER
 
 class Node(object):
 
@@ -101,7 +101,7 @@ class Trie(object):
 
 def build_trie(filepaths,
                 pbarp = False):
-    
+    print('building trie...')
     trie = Trie()
     for filepath in filepaths:
         print('loading {}...'.format(filepath))
@@ -139,7 +139,6 @@ if __name__ == '__main__':
     pprint (trie.prefix_exists_p("tri"))
     pprint (trie.prefix_exists_p("trie"))
     pprint (trie.prefix_exists_p("Trie"))
-
 
     tamil_trie = Trie()
     for filepath in DEFAULT_DICTIONARY_FILES:

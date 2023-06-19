@@ -7,8 +7,8 @@ from collections import deque
 from pprint import pprint, pformat
 import csv
 
-import utils
-from resources import DEFAULT_DICTIONARY_FILES
+import ilakkani.utils as utils
+from .valam import DEFAULT_DICTIONARY_FILES
 
 class BKTree:
     """
@@ -61,7 +61,7 @@ class TamilBKTree(BKTree):
 
 def build_bktree(filepaths,
                 pbarp = False):
-    
+    print('building bktree...')
     tree = TamilBKTree(levenshtein)
     for filepath in filepaths:
         print('loading {}...'.format(filepath))

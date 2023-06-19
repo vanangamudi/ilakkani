@@ -1,6 +1,6 @@
 
 import os
-VER = os.path.realpath(os.path.join(os.path.dirname(__file__), '../..'))
+VER = os.path.realpath(os.path.join(os.path.dirname(__file__), '..'))
 
 XSV_DELIMITER = '\t'
 THARAVU_VER = f'{VER}/tharavu'
