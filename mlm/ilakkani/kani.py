@@ -46,6 +46,13 @@ class Thiruthi:
     def _thiruthu(self, thundugal):
 
         for thundu in thundugal:
+            if not thundu.word:
+                # spaces are preserved
+                continue
+
+            if len(thundu.word) == 1 and thundu.word in string.punctuation:
+                continue
+
             if thundu.word in self.bloom:
                 thundu.correct = True
                 continue
@@ -76,7 +83,10 @@ class KoappuThiruthi(Thiruthi):
     def thiruthu(self, ulleedu, veliyeedu):
         for vari in ulleedu:
             #print(vari)
-            thundugal = super().thiruthu(vari.split())
+            #thundugal = super().thiruthu(vari.split())
+            thundugal = super().thiruthu(
+                tokenizer.punct_tokenizer(vari)
+            )
             sarivari = ''
             for thundu in thundugal:
                 if thundu.correct:
@@ -87,7 +97,7 @@ class KoappuThiruthi(Thiruthi):
                         + '/'.join([i[1] for i in thundu.suggestions])
             #print('  ' + sarivari)
             print(sarivari, file=veliyeedu)
-            
+
 
 class JsonThiruthi(Thiruthi):
     def __init__(self, filepaths, suggestions_count=5):
