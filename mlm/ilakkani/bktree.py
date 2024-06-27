@@ -2,13 +2,15 @@
 
 from editdistance import eval as levenshtein
 from tqdm import tqdm
-from tamil.utf8 import get_letters
+
 from collections import deque
 from pprint import pprint, pformat
 import csv
 
+import arichuvadi as ari
+
 import ilakkani.utils as utils
-from .valam import DEFAULT_DICTIONARY_FILES
+from ilakkani.valam import DEFAULT_DICTIONARY_FILES
 
 class BKTree:
     """
@@ -20,7 +22,7 @@ class BKTree:
 
     def distance_func(self, node, candidate):
         return self._distance_func(node, candidate)
-        
+
     def add(self, node):
         if self._tree is None:
             self._tree = (node, {})
@@ -50,12 +52,12 @@ class BKTree:
             low, high = dist - radius, dist + radius
             candidates.extend(c for d, c in children.items()
                               if low <= d <= high)
-            
+
         return sorted(result, key=lambda x: x[0])
 
 class TamilBKTree(BKTree):
     def distance_func(self, node, candidate):
-        node, candidate = get_letters(node), get_letters(candidate)
+        node, candidate = ari.get_letters_coding(node), ari.get_letters_coding(candidate)
         return super().distance_func(node, candidate)
 
 
@@ -92,15 +94,18 @@ if __name__ == '__main__':
         with utils.openfile(filepath) as f:
             csvf = csv.reader(f, delimiter='\t')
             for line in tqdm(csvf):
-                token, count = line
+                try:
+                    token, count = line
+                except:
+                    print(line)
                 if token:
                     tree.add(token)
-                    
+
     word = input('> ')
     while word:
         pprint('என்ன என்ன வார்த்தைகளோ?')
-        pprint(tree.search(word, 2))
-        
+        pprint(tree.search(word, max(len(word)//2, 2)))
+
         word = input('> ')
 
 

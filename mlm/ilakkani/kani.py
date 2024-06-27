@@ -2,18 +2,22 @@ from tqdm import tqdm
 
 from Levenshtein import distance as levenshtein_distance
 from tqdm import tqdm
-from tamil.utf8 import get_letters
+
 from collections import deque
 from pprint import pprint, pformat
 
-from .valam import DEFAULT_DICTIONARY_FILES
-from .bloom import build_bloom
-from .trie import build_trie
-from .bktree import build_bktree
+import arichuvadi as ari
+
+from ilakkani.valam import DEFAULT_DICTIONARY_FILES
+from ilakkani.bloom import build_bloom
+from ilakkani.trie import build_trie
+from ilakkani.bktree import build_bktree
 
 import json
+import string
 
 import ilakkani.valam as valam
+import tokenizer
 
 class Thundu:
     def __init__(self, word):
@@ -27,7 +31,7 @@ class Thundu:
             'suggestions' : self.suggestions,
             'correct_p' : self.correct
         }
-    
+
 
 class Thiruthi:
     def __init__(self,
@@ -109,14 +113,14 @@ def main_loop():
     while word:
         print('இருக்குதா? {}'.format(
             'இருக்கு' if word in bloom  else 'இல்லை'))
-        
+
 
         print('இருக்குதா? {}'.format(
-            'இருக்கு' if trie.prefix_exists_p(get_letters(word)) else 'இல்லை'))
-        
+            'இருக்கு' if trie.prefix_exists_p(ari.get_letters_coding(word)) else 'இல்லை'))
+
         pprint('என்ன என்ன வார்த்தைகளோ?')
         pprint(bktree.search(word, 2))
-        
+
         word = input('> ')
 
     return
@@ -125,7 +129,7 @@ import sys
 import argparse
 
 def vaayil():
-    parser = argparse.ArgumentParser('thiruthi')
+    parser = argparse.ArgumentParser('kani')
     parser.add_argument('input',
                         default=sys.stdin,
                         type=argparse.FileType('r'),
@@ -137,11 +141,11 @@ def vaayil():
                         help='output file')
 
     args = parser.parse_args()
-        
+
     thiruthi = KoappuThiruthi(DEFAULT_DICTIONARY_FILES, suggestions_count=2)
     thiruthi.thiruthu(args.input, args.output)
 
-    
+
 if __name__ == '__main__':
 
     vaayil()
@@ -158,16 +162,16 @@ if __name__ == '__main__':
                         help='output file')
 
     args = parser.parse_args()
-        
+
     thiruthi = KoappuThiruthi(DEFAULT_DICTIONARY_FILES, suggestions_count=2)
     thiruthi.thiruthu(args.input, args.output)
 
     json_thiruthi = JsonThiruthi([])
     json_thiruthi.copy_dicts(thiruthi)
 
-    
+
     #thirutham = json_thiruthi.thiruthu(json.load(open('tharavu/test.json')))
     #pprint(thirutham)
-    
+
     #main_loop()
     """

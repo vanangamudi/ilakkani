@@ -2,8 +2,10 @@
 from pprint import pprint, pformat
 import pdb
 from tqdm import tqdm
-from tamil.utf8 import get_letters
+
 import csv
+
+import arichuvadi as ari
 
 import ilakkani.utils as utils
 from .valam import DEFAULT_DICTIONARY_FILES, XSV_DELIMITER
@@ -30,7 +32,7 @@ class Node(object):
         self.children = {}
         self.is_complete = False
         self.level = level
-        
+
 
 class Trie(object):
 
@@ -50,7 +52,7 @@ class Trie(object):
                 tnode.children[item[j]].count += 1
                 tnode = tnode.children[item[j]]
                 j += 1
-                
+
             # add new nodes
             while i < len(item):
                 #new_node = Node(item[:i+1], count=1, level=i+1)
@@ -68,12 +70,12 @@ class Trie(object):
             prev_node = node
             node = node.children.get(prefix[i], None)
             i += 1
-            
+
         if i <= len(prefix):
             return prev_node, i-1
         else:
             return self.root, 0
-        
+
     def prefix_exists_p(self, prefix):
         node, index = self.find_prefix(prefix)
         if not node == self.root:
@@ -114,7 +116,7 @@ def build_trie(filepaths,
             try:
                 token, count = item
                 if token:
-                    trie.add(get_letters(token))
+                    trie.add(ari.get_letters_coding(token))
                     if pbarp:
                         pbar.set_description(token)
             except:
@@ -122,7 +124,7 @@ def build_trie(filepaths,
 
 
     return trie
-    
+
 if __name__ == '__main__':
     trie = Trie()
     trie.add("hell")
@@ -148,14 +150,14 @@ if __name__ == '__main__':
             for line in tqdm(csvf):
                 token, count = line
                 if token:
-                    tamil_trie.add(get_letters(token))
-                    
+                    tamil_trie.add(ari.get_letters_coding(token))
+
     word = input('> ')
     while word:
         print('இருக்குதா? {}'.format(
-            'இருக்கு' if tamil_trie.prefix_exists_p(get_letters(word)) \
+            'இருக்கு' if tamil_trie.prefix_exists_p(ari.get_letters_coding(word)) \
             else 'இல்லை'))
-        
+
         word = input('> ')
 
 
